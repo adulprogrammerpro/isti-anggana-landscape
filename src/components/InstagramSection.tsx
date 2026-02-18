@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Instagram } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import p1 from "@/assets/portfolio-1.jpg";
 import p2 from "@/assets/service-tropical.jpg";
@@ -14,6 +15,7 @@ const photos = [p1, p2, p3, p4, p5, p6];
 const InstagramSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section ref={ref} className="section-padding bg-forest">
@@ -26,7 +28,7 @@ const InstagramSection = () => {
         >
           <Instagram className="w-8 h-8 text-gold mx-auto mb-3" />
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-forest-foreground">
-            Follow us <span className="text-gold">@istianggana.landscape</span>
+            {t.instagram.titleStart}<span className="text-gold">{t.instagram.titleHighlight}</span>
           </h2>
         </motion.div>
 

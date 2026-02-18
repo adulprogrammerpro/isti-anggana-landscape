@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import heroBg from "@/assets/beranda-1.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+
   const scrollTo = (id: string) => {
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -23,7 +26,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-gold font-body text-sm tracking-[0.4em] uppercase mb-4"
           >
-            Sustainability in Harmony
+            {t.hero.subtitle}
           </motion.p>
 
           <motion.h1
@@ -32,8 +35,8 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 0.5 }}
             className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-forest-foreground leading-tight mb-6"
           >
-            Jual Tanaman
-            <span className="block italic text-gold">Murah</span>
+            {t.hero.titleLine1}
+            <span className="block italic text-gold">{t.hero.titleLine2}</span>
           </motion.h1>
 
           <motion.p
@@ -42,7 +45,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.9 }}
             className="text-forest-foreground/80 font-body text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed"
           >
-            Menghadirkan alam yang bersenyawa dengan tempat Anda berada.
+            {t.hero.description}
           </motion.p>
 
           <motion.div
@@ -55,7 +58,7 @@ const HeroSection = () => {
               onClick={() => scrollTo("#portofolio")}
               className="bg-primary hover:bg-teal-light text-primary-foreground px-8 py-3.5 rounded-full font-body font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-xl"
             >
-              Jelajahi Karya Kami
+              {t.hero.ctaPrimary}
             </button>
             <a
               href="https://wa.me/6285648276200"
@@ -63,7 +66,7 @@ const HeroSection = () => {
               rel="noopener noreferrer"
               className="border-2 border-gold text-gold hover:bg-gold hover:text-forest px-8 py-3.5 rounded-full font-body font-bold text-sm tracking-wide transition-all duration-300"
             >
-              Konsultasi Gratis
+              {t.hero.ctaSecondary}
             </a>
           </motion.div>
         </div>

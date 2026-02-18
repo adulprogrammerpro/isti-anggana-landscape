@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
@@ -20,12 +21,12 @@ const projects = [
   { src: portfolio6, title: "Rumah Kebon Jeruk", category: "rainforest" as Category },
 ];
 
-const filters: { label: string; value: Category }[] = [
-  { label: "Semua", value: "all" },
-  { label: "Tropical", value: "tropical" },
-  { label: "Pond", value: "pond" },
-  { label: "Vertical", value: "vertical" },
-  { label: "Rainforest", value: "rainforest" },
+const filterKeys: { key: "all" | "tropical" | "pond" | "vertical" | "rainforest"; value: Category }[] = [
+  { key: "all", value: "all" },
+  { key: "tropical", value: "tropical" },
+  { key: "pond", value: "pond" },
+  { key: "vertical", value: "vertical" },
+  { key: "rainforest", value: "rainforest" },
 ];
 
 const PortfolioSection = () => {
@@ -33,6 +34,7 @@ const PortfolioSection = () => {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   const filtered = active === "all" ? projects : projects.filter((p) => p.category === active);
 
@@ -45,9 +47,9 @@ const PortfolioSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <p className="text-primary font-body text-sm tracking-[0.3em] uppercase mb-3">Portofolio</p>
+          <p className="text-primary font-body text-sm tracking-[0.3em] uppercase mb-3">{t.portfolio.label}</p>
           <h2 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Karya <span className="italic text-primary">Terbaik</span> Kami
+            {t.portfolio.titleStart}<span className="italic text-primary">{t.portfolio.titleHighlight}</span>{t.portfolio.titleEnd}
           </h2>
         </motion.div>
 
@@ -58,17 +60,16 @@ const PortfolioSection = () => {
           transition={{ delay: 0.3 }}
           className="flex flex-wrap justify-center gap-3 mb-10"
         >
-          {filters.map((f) => (
+          {filterKeys.map((f) => (
             <button
               key={f.value}
               onClick={() => setActive(f.value)}
-              className={`px-5 py-2 rounded-full text-sm font-body font-bold transition-all duration-300 ${
-                active === f.value
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "bg-card text-muted-foreground hover:bg-primary/10 border border-border"
-              }`}
+              className={`px-5 py-2 rounded-full text-sm font-body font-bold transition-all duration-300 ${active === f.value
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "bg-card text-muted-foreground hover:bg-primary/10 border border-border"
+                }`}
             >
-              {f.label}
+              {t.portfolio.filters[f.key]}
             </button>
           ))}
         </motion.div>

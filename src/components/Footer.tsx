@@ -2,10 +2,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { MapPin, Phone, Mail, Instagram } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const { t } = useLanguage();
 
   return (
     <footer id="kontak" ref={ref} className="bg-forest border-t border-forest-foreground/10">
@@ -25,7 +27,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-forest-foreground/60 font-body text-sm leading-relaxed mb-6">
-              Menghadirkan alam yang bersenyawa dengan tempat Anda berada. Create Your Nature.
+              {t.footer.description}
             </p>
             <div className="flex gap-3">
               <a
@@ -53,7 +55,7 @@ const Footer = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            <h3 className="font-serif text-lg font-bold text-forest-foreground mb-5">Hubungi Kami</h3>
+            <h3 className="font-serif text-lg font-bold text-forest-foreground mb-5">{t.footer.contactTitle}</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <MapPin size={18} className="text-gold mt-0.5 shrink-0" />
@@ -83,7 +85,7 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:col-span-1 md:col-span-2"
           >
-            <h3 className="font-serif text-lg font-bold text-forest-foreground mb-5">Lokasi</h3>
+            <h3 className="font-serif text-lg font-bold text-forest-foreground mb-5">{t.footer.locationTitle}</h3>
             <div className="rounded-xl overflow-hidden aspect-video">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.2!2d106.83!3d-6.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMjQnMDAuMCJTIDEwNsKwNDknNDguMCJF!5e0!3m2!1sid!2sid!4v1600000000000!5m2!1sid!2sid"
@@ -93,7 +95,7 @@ const Footer = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Lokasi Isti Anggana Landscape"
+                title={t.footer.locationMapTitle}
               />
             </div>
           </motion.div>
@@ -103,7 +105,7 @@ const Footer = () => {
       {/* Bottom bar */}
       <div className="border-t border-forest-foreground/10 py-6">
         <p className="text-center text-forest-foreground/40 font-body text-xs tracking-wide">
-          © {new Date().getFullYear()} Isti Anggana Landscape. All rights reserved.
+          © {new Date().getFullYear()} {t.footer.copyright}
         </p>
       </div>
     </footer>

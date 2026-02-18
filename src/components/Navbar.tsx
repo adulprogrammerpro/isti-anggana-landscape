@@ -2,18 +2,13 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
-
-const navLinks = [
-  { label: "Beranda", href: "#beranda" },
-  { label: "Tentang Kami", href: "#tentang" },
-  { label: "Layanan", href: "#layanan" },
-  { label: "Portofolio", href: "#portofolio" },
-  { label: "Kontak", href: "#kontak" },
-];
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -28,9 +23,8 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass-nav shadow-lg" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "glass-nav shadow-lg" : "bg-transparent"
+        }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4 py-3 md:py-4">
         {/* Logo */}
@@ -44,7 +38,7 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {t.navbar.links.map((link) => (
             <button
               key={link.href}
               onClick={() => handleClick(link.href)}
@@ -55,15 +49,18 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* CTA */}
-        <a
-          href="https://wa.me/6285648276200"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:inline-flex items-center gap-2 bg-primary hover:bg-teal-light text-primary-foreground px-5 py-2.5 rounded-full text-sm font-body font-bold transition-all duration-300 hover:shadow-lg"
-        >
-          Konsultasi
-        </a>
+        {/* CTA + Language Switcher */}
+        <div className="hidden md:flex items-center gap-3">
+          <LanguageSwitcher />
+          <a
+            href="https://wa.me/6285648276200"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-primary hover:bg-teal-light text-primary-foreground px-5 py-2.5 rounded-full text-sm font-body font-bold transition-all duration-300 hover:shadow-lg"
+          >
+            {t.navbar.cta}
+          </a>
+        </div>
 
         {/* Mobile Toggle */}
         <button
@@ -85,7 +82,7 @@ const Navbar = () => {
             className="md:hidden glass-nav overflow-hidden"
           >
             <div className="px-4 py-6 flex flex-col gap-4">
-              {navLinks.map((link) => (
+              {t.navbar.links.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => handleClick(link.href)}
@@ -94,13 +91,16 @@ const Navbar = () => {
                   {link.label}
                 </button>
               ))}
+              <div className="flex items-center gap-3 mt-2">
+                <LanguageSwitcher />
+              </div>
               <a
                 href="https://wa.me/6285648276200"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-primary text-primary-foreground px-5 py-3 rounded-full text-sm font-bold mt-2"
               >
-                Konsultasi Gratis
+                {t.navbar.ctaMobile}
               </a>
             </div>
           </motion.div>
