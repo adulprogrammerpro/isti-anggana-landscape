@@ -32,8 +32,8 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 0.5 }}
             className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-forest-foreground leading-tight mb-6"
           >
-            Create Your
-            <span className="block italic text-gold">Nature</span>
+            Jual Tanaman
+            <span className="block italic text-gold">Murah</span>
           </motion.h1>
 
           <motion.p
